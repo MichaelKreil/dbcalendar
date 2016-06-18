@@ -27,11 +27,14 @@ $(function () {
 
 	function generateBox(entry) {
 		if (entry.type === 'problem') {
+			var clicked = 0; //dirty Hack!!!
 			entry.clickHandler = function (evnt) {
+				if (clicked !== 0) return;
+				clicked++;
 				$problem = $(entry.nodes);
 				$problem.css({opacity:0});
 
-				var $solutions = [];
+				var solutionNodes = [];
 				var solutions = entry.solutions.map(function (s) {
 					var solution = {
 						type: 'solution',
@@ -45,12 +48,17 @@ $(function () {
 					}
 					generateBox(solution);
 					solution.$nodes = $(solution.nodes);
-					var $solution = $(solution.nodes[0]);
-					var offset = $solution.offset();
-					solution.x = offset.left + $solution.outerWidth()/2;
-					solution.y = offset.top  + $solution.outerHeight()/2;
 
-					$solutions = $solutions.concat(solution.nodes);
+					solution.nodes.forEach(function (node) {
+						$node = $(node);
+						var offset = $node.offset();
+						$node.data('sol', solution);
+						$node.data('x', offset.left + $node.outerWidth()/2);
+						$node.data('y', offset.top  + $node.outerHeight()/2);
+					})
+
+					solutionNodes = solutionNodes.concat(solution.nodes);
+
 					return solution;
 
 					function getTime(text) {
@@ -60,7 +68,7 @@ $(function () {
 						return text;
 					}
 				})
-				$solutions = $($solutions);
+				var $solutions = $(solutionNodes);
 
 				highlight(evnt);
 				$problem.mouseover(highlight);
@@ -69,24 +77,36 @@ $(function () {
 					$solutions.removeClass('hover');
 				});
 				function highlight(evnt) {
-					var x = evnt.pageX;
-					var y = evnt.pageY;
+					var solution = findSolution(evnt.pageX, evnt.pageY);
+					$solutions.removeClass('hover');
+					solution.$nodes.addClass('hover');
+				}
+				function findSolution(x,y) {
 					var bestDist = 1e100;
 					var bestSolution = false;
-					solutions.forEach(function (solution) {
-						var dist = sqr(solution.x - x) + sqr(solution.y - y);
+					solutionNodes.forEach(function (solutionNode) {
+						var $node = $(solutionNode);
+						var dist = sqr($node.data('x') - x) + sqr($node.data('y') - y);
 						if (dist < bestDist) {
 							bestDist = dist;
-							bestSolution = solution;
+							bestSolution = $node.data('sol');
 						}
 					})
-					$solutions.removeClass('hover');
-					bestSolution.$nodes.addClass('hover');
+					return bestSolution;
 
-					function sqr(v) {
-						return v*v;
-					}
+					function sqr(v) { return v*v; }
 				}
+				$problem.click(function (evnt) {
+					if (clicked !== 1) return;
+					clicked++;
+					var solution = findSolution(evnt.pageX, evnt.pageY);
+					solution.$nodes.removeClass('boxsolution');
+					solution.$nodes.removeClass('hover');
+					solution.$nodes.addClass('boxtravel');
+					//console.log($solutions.filter('.boxsolution'));
+					$solutions.remove('.boxsolution');
+					$problem.remove();
+				});
 			}
 		}
 

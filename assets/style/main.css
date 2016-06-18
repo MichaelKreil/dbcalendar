@@ -89,10 +89,14 @@ body {
 			background: rgba(248,31,46,0.1);
 			pointer-events: none;
 		}
-		#calendar .box.boxsolution.hover {
+			#calendar .box.boxsolution.hover {
+				color: #fff;
+				border: 1px solid rgba(248,31,46,1.0);
+				background: rgba(248,31,46,0.6);
+			}
+		#calendar .box.boxtravel {
 			color: #fff;
-			border: 1px solid rgba(248,31,46,1.0);
-			background: rgba(248,31,46,0.8);
+			background: rgba(248,31,46,1.0);
 		}
 
 
