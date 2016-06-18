@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv=X-UA-Compatible content="IE=edge">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	
+	<link rel="stylesheet" type="text/css" href="assets/skeleton/normalize.css">
+	<link rel="stylesheet" type="text/css" href="assets/skeleton/skeleton.css">
+	<link rel="stylesheet" type="text/css" href="assets/style/main.css">
+	<link rel="stylesheet" type="text/css" href="assets/font-awesome/css/font-awesome.min.css">
+
+	<script type="text/javascript">
+		var data = {{{json}}}
+	</script>
+
+	<script type="text/javascript" src="assets/jquery/jquery.js"></script>
+	<script type="text/javascript" src="assets/script/main.js"></script>
+</head>
+<body>
+	<h1>Bahn Travel Calendar</h1>
+	<div id="calendar">
+		<div class="col" style="height:100%;width:9%">
+			{{#each times}}
+				<div class="time{{#if worktime}} worktime{{/if}}" style="bottom:{{bottom}}px">{{label}}</div>
+			{{/each}}
+		</div>
+		{{#each days}}
+			<div class="col" style="width:13%">
+				<div class="calcol">
+					<h4>{{label}}</h4>
+					<div class="day" date="{{date}}"></div>
+				</div>
+			</div>
+		{{/each}}
+		<br style="clear:both">
+	</div>
+	<div id="messages"></div>
+</body>
+</html>

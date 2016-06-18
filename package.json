@@ -1,0 +1,29 @@
+{
+  "name": "dbcalendar",
+  "version": "0.1.0",
+  "description": "",
+  "main": "bin/start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichaelKreil/dbcalendar.git"
+  },
+  "author": "Michael Kreil",
+  "license": "MIT",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/MichaelKreil/dbcalendar/issues"
+  },
+  "homepage": "https://github.com/MichaelKreil/dbcalendar#readme",
+  "dependencies": {
+    "async": "^2.0.0-rc.6",
+    "express": "^4.14.0",
+    "fahrplan": "^0.3.2",
+    "google-auth-library": "^0.9.8",
+    "googleapis": "^8.2.0",
+    "handlebars": "^4.0.5",
+    "node-fetch": "^1.5.3"
+  }
+}
