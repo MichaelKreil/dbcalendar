@@ -13,6 +13,10 @@ $(function () {
 		dayLookup[day.date] = day;
 	})
 
+	data.places.forEach(function (place) {
+		place.summary = place.start.dateTime.substr(11,5) + ' - ' + place.summary;
+	})
+
 	entries = data.places.concat(data.routes, data.problems);
 
 	entries.sort(function (a,b) {
