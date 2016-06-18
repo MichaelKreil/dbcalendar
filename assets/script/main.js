@@ -1,3 +1,5 @@
+"use strict";
+
 $(function () {
 	var $calendar = $('#calendar');
 
@@ -35,7 +37,7 @@ $(function () {
 			entry.clickHandler = function (evnt) {
 				if (clicked !== 0) return;
 				clicked++;
-				$problem = $(entry.nodes);
+				var $problem = $(entry.nodes);
 				$problem.css({opacity:0});
 
 				var solutionNodes = [];
@@ -54,7 +56,7 @@ $(function () {
 					solution.$nodes = $(solution.nodes);
 
 					solution.nodes.forEach(function (node) {
-						$node = $(node);
+						var $node = $(node);
 						var offset = $node.offset();
 						$node.data('sol', solution);
 						$node.data('x', offset.left + $node.outerWidth()/2);
@@ -132,7 +134,7 @@ $(function () {
 		function drawBox(entry, dayName, min0, min1) {
 			var y = min0/2;
 			var h = (min1-min0)/2;
-			day = dayLookup[dayName];
+			var day = dayLookup[dayName];
 			var $node = $('<div class="box box'+entry.type+'" style="top:'+y+'px;height:'+h+'px"><p class="what">'+entry.summary+'</p><p class="where">'+entry.location+'</p></div>')
 			day.$node.append($node);
 			if (entry.clickHandler) $node.click(entry.clickHandler)
